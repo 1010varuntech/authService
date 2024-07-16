@@ -31,7 +31,6 @@ const userSchema = new Schema({
   phone: {
     type: String,
     required: [false, "Please provide a phone number"],
-    unique: true, 
   },
   planId: {
     type: String,
