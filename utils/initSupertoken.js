@@ -3,6 +3,7 @@ import Session from "supertokens-node/recipe/session/index.js";
 import EmailPassword from "supertokens-node/recipe/emailpassword/index.js";
 import ThirdParty from "supertokens-node/recipe/thirdparty/index.js";
 import EmailVerification from "supertokens-node/recipe/emailverification/index.js";
+import Dashboard from "supertokens-node/recipe/dashboard/index.js";
 import AccountLinking from "supertokens-node/recipe/accountlinking/index.js";;
 
 const initSuperToken = () => { //initializing supertoken
@@ -21,30 +22,36 @@ const initSuperToken = () => { //initializing supertoken
     },
     recipeList: [
       AccountLinking.init({
-            shouldDoAutomaticAccountLinking: async (newAccountInfo, user, session, tenantId, userContext) => {
-                if (session !== undefined) {
-                    return {
-                        shouldAutomaticallyLink: false
-                    }
-                }
-                if (newAccountInfo.recipeUserId !== undefined && user !== undefined) {
-                    let userId = newAccountInfo.recipeUserId.getAsString();
-                    let hasInfoAssociatedWithUserId = false
-                    if (hasInfoAssociatedWithUserId) {
-                        return {
-                            shouldAutomaticallyLink: false
-                        }
-                    }
-                }
-                return {
-                    shouldAutomaticallyLink: true,
-                    shouldRequireVerification: true
-                }
+        shouldDoAutomaticAccountLinking: async (
+          newAccountInfo,
+          user,
+          session,
+          tenantId,
+          userContext
+        ) => {
+          if (session !== undefined) {
+            return {
+              shouldAutomaticallyLink: false,
+            };
+          }
+          if (newAccountInfo.recipeUserId !== undefined && user !== undefined) {
+            let userId = newAccountInfo.recipeUserId.getAsString();
+            let hasInfoAssociatedWithUserId = false;
+            if (hasInfoAssociatedWithUserId) {
+              return {
+                shouldAutomaticallyLink: false,
+              };
             }
-        }),
+          }
+          return {
+            shouldAutomaticallyLink: true,
+            shouldRequireVerification: true,
+          };
+        },
+      }),
       EmailPassword.init(),
       EmailVerification.init({
-        // mode: "REQUIRED", // or "OPTIONAL"     Need to change to required when the email is validated 
+        // mode: "REQUIRED", // or "OPTIONAL"     Need to change to required when the email is validated
       }),
       ThirdParty.init({
         signInAndUpFeature: {
@@ -66,6 +73,7 @@ const initSuperToken = () => { //initializing supertoken
       Session.init({
         exposeAccessTokenToFrontendInCookieBasedAuth: true,
       }),
+      Dashboard.init(),
     ],
   });
 };
