@@ -15,7 +15,7 @@ initSuperToken();
 const app = express()
 app.use(errorHandler());
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE']}));
 
 const PORT = process.env.PORT || 5000
