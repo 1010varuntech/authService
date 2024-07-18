@@ -32,14 +32,12 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
       id: user.userId,
       email: user.email,
       isAuth: user.isAuth,
+      st_access_token: regRes.headers["st-access-token"],
+      st_refresh_token: regRes.headers["st-refresh-token"],
+      front_token: regRes.headers["front-token"],
     },
   };
   res
-    .set({
-      "st-access-token": regRes.headers["st-access-token"],
-      "st-refresh-token": regRes.headers["st-refresh-token"],
-      "front-token": regRes.headers["front-token"],
-    })
     .status(200)
     .json(responseData);
 });
@@ -68,14 +66,12 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
       id: user.userId,
       email: user.email,
       isAuth: user.isAuth,
+      st_access_token: regRes.headers["st-access-token"],
+      st_refresh_token: regRes.headers["st-refresh-token"],
+      front_token: regRes.headers["front-token"],
     },
   };
   res
-    .set({
-      "st-access-token": regRes.headers["st-access-token"],
-      "st-refresh-token": regRes.headers["st-refresh-token"],
-      "front-token": regRes.headers["front-token"],
-    })
     .status(200)
     .json(responseData);
 });
@@ -111,7 +107,7 @@ export const changeRole = catchAsyncError(async (req, res, next) => {
     return res.status(400).json({ message: "User not found" });
   }
   userRole = user.role;
-  if (userRole !== "superadmin") {
+  if (userRole !== "admin") {
     return res
       .status(401)
       .json({ message: "you are not authorised for changing role" });

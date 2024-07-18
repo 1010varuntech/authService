@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors';
 import { config } from "dotenv";
+import SuperTokens from "supertokens-node";
 config();
 
 import initSuperToken from "./utils/initSupertoken.js";
@@ -14,9 +15,14 @@ connectDB();
 initSuperToken();
 const app = express()
 app.use(errorHandler());
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE']}));
+app.use(
+  cors({
+    origin: "http://127.0.0.1:3000",
+    allowedHeaders: ["content-type", ...SuperTokens.getAllCORSHeaders()],
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT || 5000
 app.use(middleware());
