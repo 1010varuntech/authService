@@ -4,14 +4,15 @@ import User from "../models/user.js";
 import axios from "axios";
 import crypto from "crypto";
 
+
 const liveChatClientIdHash = crypto
   .createHash("sha256")
-  .update(process.env.LIVECHAT_CLIENT_ID)
+  .update("3a6ae59037cca9ebf287e4980b76f50d")
   .digest("base64");
 
 const liveChatOrganizationIdHash = crypto
   .createHash("sha256")
-  .update(process.env.LIVECHAT_ORGANIZATION_ID)
+  .update("5a5d4614-d8e7-4003-b763-93fc9541c4d4")
   .digest("base64");
 
 axios.defaults.withCredentials = true;
