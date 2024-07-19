@@ -16,12 +16,7 @@ initSuperToken();
 const app = express()
 app.use(errorHandler());
 app.use(
-  cors({
-    origin: "http://127.0.0.1:3000",
-    allowedHeaders: ["content-type", ...SuperTokens.getAllCORSHeaders()],
-    methods: ["GET", "PUT", "POST", "DELETE"],
-    credentials: true,
-  })
+  cors()
 );
 
 const PORT = process.env.PORT || 5000
