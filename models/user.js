@@ -14,10 +14,19 @@ const userSchema = new Schema({
     required: [true, "Please provide an email"],
     unique: true,
   },
-  userId: { //user id from super tokens
+  userId: {
+    //user id from super tokens
     type: String,
     required: [true, "Please provide a userId"],
     unique: true,
+  },
+  userName: {
+    type: String,
+    required: [false, "Please provide a userName"],
+  },
+  techStackEmail: {
+    type: String,
+    required: [false, "Please provide a techStackEmail"],
   },
   isAuth: {
     type: Boolean,
@@ -37,12 +46,14 @@ const userSchema = new Schema({
     required: [false, "Please provide a plan id"],
   },
   //array of human chat ids
-  humanChats: [{
-    humanMesage: String,
-    aiMessage: String,
-    humanTime: Date,
-    aiTime: Date,
-  }],
+  humanChats: [
+    {
+      humanMesage: String,
+      aiMessage: String,
+      humanTime: Date,
+      aiTime: Date,
+    },
+  ],
   organizationId: {
     type: String,
     required: [false, "Please provide a organization id"],
@@ -52,10 +63,12 @@ const userSchema = new Schema({
     type: String,
     required: [false, "Please provide a customer id"],
   },
-  invoicesId: [{
-    invoiceId: String,
-    date: Date,
-  }],
+  invoicesId: [
+    {
+      invoiceId: String,
+      date: Date,
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -63,8 +76,7 @@ const userSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now(),
-  }
-
+  },
 });
 
 const User = mongoose.model("User", userSchema);
