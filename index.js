@@ -16,7 +16,10 @@ initSuperToken();
 const app = express()
 app.use(errorHandler());
 app.use(
-  cors()
+  cors({
+    origin: "*",
+    credentials: true,
+  })
 );
 
 const PORT = process.env.PORT || 5000
