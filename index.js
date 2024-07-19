@@ -17,7 +17,7 @@ const app = express()
 app.use(errorHandler());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://techstackwebapp.netlify.app/"],
     credentials: true,
   })
 );
