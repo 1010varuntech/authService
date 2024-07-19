@@ -2,6 +2,17 @@ import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import EmailPassword from "supertokens-node/recipe/emailpassword/index.js";
 import User from "../models/user.js";
 import axios from "axios";
+import crypto from "crypto";
+
+const liveChatClientIdHash = crypto
+  .createHash("sha256")
+  .update(process.env.LIVECHAT_CLIENT_ID)
+  .digest("base64");
+
+const liveChatOrganizationIdHash = crypto
+  .createHash("sha256")
+  .update(process.env.LIVECHAT_ORGANIZATION_ID)
+  .digest("base64");
 
 axios.defaults.withCredentials = true;
 
@@ -35,6 +46,8 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
       st_access_token: regRes.headers["st-access-token"],
       st_refresh_token: regRes.headers["st-refresh-token"],
       front_token: regRes.headers["front-token"],
+      liveChatClientIdHash,
+      liveChatOrganizationIdHash
     },
   };
   res
