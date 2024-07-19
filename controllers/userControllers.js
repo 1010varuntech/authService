@@ -83,6 +83,8 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
       st_access_token: regRes.headers["st-access-token"],
       st_refresh_token: regRes.headers["st-refresh-token"],
       front_token: regRes.headers["front-token"],
+      liveChatClientIdHash,
+      liveChatOrganizationIdHash,
     },
   };
   res
