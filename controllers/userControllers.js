@@ -194,6 +194,29 @@ export const resetPassword = catchAsyncError(async (req, res) => {
 })
 
 
-
+export const refreshToken = catchAsyncError(async (req, res, next) => {
+  const {refreshToken} = req.body;
+  const resp = await axios.post(
+    `${process.env.APIDOMAIN}/auth/session/refresh`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refreshToken}`,
+      },
+      withCredentials: true,
+    }
+  );
+  if (resp.status !== 200)
+    return res.status(409).json({ message: "error while operating with refresh token" });
+  const responseData = {
+    tokens: {
+      st_access_token: resp.headers["st-access-token"],
+      st_refresh_token: resp.headers["st-refresh-token"],
+      front_token: resp.headers["front-token"]
+    },
+  };
+  res.status(200).json(responseData);
+});
 
 
