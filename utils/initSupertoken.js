@@ -21,34 +21,34 @@ const initSuperToken = () => { //initializing supertoken
       websiteBasePath: "/auth",
     },
     recipeList: [
-      AccountLinking.init({
-        shouldDoAutomaticAccountLinking: async (
-          newAccountInfo,
-          user,
-          session,
-          tenantId,
-          userContext
-        ) => {
-          if (session !== undefined) {
-            return {
-              shouldAutomaticallyLink: false,
-            };
-          }
-          if (newAccountInfo.recipeUserId !== undefined && user !== undefined) {
-            let userId = newAccountInfo.recipeUserId.getAsString();
-            let hasInfoAssociatedWithUserId = false;
-            if (hasInfoAssociatedWithUserId) {
-              return {
-                shouldAutomaticallyLink: false,
-              };
-            }
-          }
-          return {
-            shouldAutomaticallyLink: true,
-            shouldRequireVerification: true,
-          };
-        },
-      }),
+      // AccountLinking.init({
+      //   shouldDoAutomaticAccountLinking: async (
+      //     newAccountInfo,
+      //     user,
+      //     session,
+      //     tenantId,
+      //     userContext
+      //   ) => {
+      //     if (session !== undefined) {
+      //       return {
+      //         shouldAutomaticallyLink: false,
+      //       };
+      //     }
+      //     if (newAccountInfo.recipeUserId !== undefined && user !== undefined) {
+      //       let userId = newAccountInfo.recipeUserId.getAsString();
+      //       let hasInfoAssociatedWithUserId = false;
+      //       if (hasInfoAssociatedWithUserId) {
+      //         return {
+      //           shouldAutomaticallyLink: false,
+      //         };
+      //       }
+      //     }
+      //     return {
+      //       shouldAutomaticallyLink: true,
+      //       shouldRequireVerification: true,
+      //     };
+      //   },
+      // }),
       EmailPassword.init(),
       EmailVerification.init({
         // mode: "REQUIRED", // or "OPTIONAL"     Need to change to required when the email is validated
