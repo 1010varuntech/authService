@@ -222,6 +222,7 @@ export const refreshToken = catchAsyncError(async (req, res, next) => {
 
 export const signinup = catchAsyncError(async (req, res, next) => {
   console.log(req.body)
+  console.log(req.headers)
   const userId = req.body.user.id
   const email = req.body.user.emails[0]
   const method = req.body.method
