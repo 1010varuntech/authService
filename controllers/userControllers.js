@@ -220,3 +220,39 @@ export const refreshToken = catchAsyncError(async (req, res, next) => {
 });
 
 
+export const signinup = catchAsyncError(async (req, res, next) => {
+  console.log(req.body)
+  const userId = req.body.user.id
+  const email = req.body.user.emails[0]
+  const method = req.body.method
+  const accessToken = req.headers.cookie.match(/st-access-token=([^;]+)/)[1];
+  if(method == "signUp"){
+    console.log("inside signup")
+    const user = await User.create({ userId, email, isAuth: true });
+    console.log("access = ", accessToken);
+    const resp = {
+      id: userId,
+      email: email,
+      isAuth: user.isAuth,
+      st_access_token: accessToken,
+      liveChatClientIdHash,
+      liveChatOrganizationIdHash,
+    };
+    console.log(resp)
+    res.status(200).json(resp);
+  }
+  else {
+  console.log("inside signin")
+  const user = await User.findOne({ userId })
+  const resp = {
+      id: userId,
+      email: email,
+      isAuth: user.isAuth,
+      st_access_token: accessToken,
+      liveChatClientIdHash,
+      liveChatOrganizationIdHash,
+  }
+  console.log(resp)
+  res.status(200).json(resp);
+}
+})

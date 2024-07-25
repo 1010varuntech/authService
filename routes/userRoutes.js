@@ -6,7 +6,8 @@ import {
   updateProfile,
   getProfile,
   resetPassword,
-  refreshToken
+  refreshToken,
+  signinup
 } from "../controllers/userControllers.js";
 import express from "express";
 import { verifySession } from "supertokens-node/recipe/session/framework/express/index.js";
@@ -21,5 +22,6 @@ router.get("/getprofile", verifySession(), getProfile);
 router.post("/editprofile", verifySession(), updateProfile);
 router.post("/resetpassword", verifySession(), resetPassword);
 router.post("/refreshtoken", refreshToken);
+router.post("/signinup", signinup);
 
 export default router;
