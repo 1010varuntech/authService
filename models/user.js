@@ -77,6 +77,14 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  companyFind: {
+    type: String,
+    required: [false, "Please provide where you find this company"],
+  },
+  useProduct: {
+    type: String,
+    required: [false, "How do you plan to use this product"],
+  },
 });
 
 const User = mongoose.model("User", userSchema);

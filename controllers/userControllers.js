@@ -94,7 +94,7 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
 
 export const onBoardUser = catchAsyncError(async (req, res) => {
-  const { phone, firstName, lastName } = req.body;
+  const { phone, firstName, lastName, useProduct, companyFind } = req.body;
   const userId = req.session.getUserId();
   const user = await User.findOne({ userId });
   if (!user) {
@@ -105,6 +105,8 @@ export const onBoardUser = catchAsyncError(async (req, res) => {
     user.firstName = firstName;
     user.lastName = lastName;
     user.isAuth = true;
+    user.companyFind = companyFind;
+    user.useProduct = useProduct;
     user.updatedAt = Date.now();
   }catch(e) {
     return res.status(409).json({message: e})
@@ -234,7 +236,7 @@ export const signinup = catchAsyncError(async (req, res, next) => {
     const resp = {
       id: userId,
       email: email,
-      isAuth: user.isAuth,
+      isAuth: true,
       st_access_token: accessToken,
       liveChatClientIdHash,
       liveChatOrganizationIdHash,
