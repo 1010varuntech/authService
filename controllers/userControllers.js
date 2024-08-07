@@ -4,16 +4,29 @@ import User from "../models/user.js";
 import axios from "axios";
 import crypto from "crypto";
 
+const secretKey = "4468e2258d6c36fc5f199876a96d10252628ed8d2357dfc11afa424d2bfd3c31";
 
-const liveChatClientIdHash = crypto
-  .createHash("sha256")
-  .update("3a6ae59037cca9ebf287e4980b76f50d")
-  .digest("base64");
+const encrypt = (text, secretKey) => {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(
+    "aes-256-cbc",
+    Buffer.from(secretKey, "hex"),
+    iv
+  );
+  let encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return iv.toString("hex") + ":" + encrypted.toString("hex");
+}
 
-const liveChatOrganizationIdHash = crypto
-  .createHash("sha256")
-  .update("5a5d4614-d8e7-4003-b763-93fc9541c4d4")
-  .digest("base64");
+const liveChatClientIdHash = encrypt(
+  "3a6ae59037cca9ebf287e4980b76f50d",
+  secretKey
+);
+
+const liveChatOrganizationIdHash = encrypt(
+  "5a5d4614-d8e7-4003-b763-93fc9541c4d4",
+  secretKey
+);
 
 axios.defaults.withCredentials = true;
 
